@@ -11,21 +11,17 @@ $(function () {
   var saveBtn = $(".saveBtn");
 
   $(saveBtn).on("click", function () {
+    // Grabbing the id of the parent element, (the 'hour')
     var parentElement = this.parentNode;
     var parentId = parentElement.id;
-    console.log(parentId);
 
+    // Grabbing the value of the text area associated with the clicked save button
     var siblingElement = $(this).siblings(".description").val();
-    console.log(siblingElement);
 
-    var input = $("textarea").val();
-    console.log(input);
-
-    localStorage.setItem(parentId, input);
+    // Saving the parent element id and text area value to local storage
+    localStorage.setItem(parentId, siblingElement);
   });
 
-  // TODO: Add code to apply the past, present, or future class to each time
-  // block by comparing the id to the current hour.
   var currentHour = dayjs().hour();
   var rowEl = $("textarea");
 
