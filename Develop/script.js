@@ -3,17 +3,19 @@ $(function () {
 
   $(saveBtn).on("click", function () {
     var hourId = $(this).parent().attr("id");
-    
-    var task = {
-      hour: hourId,
-      value: $(this).siblings(".description").val(),
-    };
+
+    // var task = {
+    //   hour: hourId,
+    //   value: $(this).siblings(".description").val(),
+    // };
+    var input = $(this).siblings(".description").val();
+
+    // localStorage.setItem(hourId, JSON.stringify(task));
+    localStorage.setItem(hourId, input);
    
-    localStorage.setItem(hourId, JSON.stringify(task));
 
- var schedule = localStorage.getItem(JSON.parse(hourId));
- console.log(schedule);
-
+    //  var schedule = localStorage.getItem(JSON.parse(hourId));
+    //  console.log(schedule);
   });
 
   var currentHour = dayjs().hour();
@@ -30,6 +32,13 @@ $(function () {
     if (currentRowHour > currentHour) {
       $(rowEl[i]).addClass("future");
     }
+    
+    var userInput = localStorage.getItem(currentRowHour);
+    console.log(userInput);
+    if (userInput) {
+      $(this).find(".description").val(userInput);
+    }
+  
   }
   //
   // TODO: Add code to get any user input that was saved in localStorage and set
@@ -37,7 +46,6 @@ $(function () {
   // attribute of each time-block be used to do this?
 
   // Create an object so there will be one key, and the value will be an array
-
 
   var today = dayjs();
   $("#currentDay").text(today.format("dddd, MMMM DD, YYYY"));
