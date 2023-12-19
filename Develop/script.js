@@ -1,26 +1,17 @@
 $(function () {
   var saveBtn = $(".saveBtn");
 
+  // Add event listener for each of the 'save' buttons to save and store the data
   $(saveBtn).on("click", function () {
     var hourId = $(this).parent().attr("id");
-
-    // var task = {
-    //   hour: hourId,
-    //   value: $(this).siblings(".description").val(),
-    // };
     var input = $(this).siblings(".description").val();
-
-    // localStorage.setItem(hourId, JSON.stringify(task));
     localStorage.setItem(hourId, input);
-   
-
-    //  var schedule = localStorage.getItem(JSON.parse(hourId));
-    //  console.log(schedule);
   });
 
   var currentHour = dayjs().hour();
   var rowEl = $("textarea");
 
+  // Iterates over each div and compares the current time with the div id ('hour')
   for (var i = 0; i < rowEl.length; i++) {
     var currentRowHour = $(rowEl[i]).parent().attr("id");
     if (currentRowHour < currentHour) {
@@ -32,14 +23,22 @@ $(function () {
     if (currentRowHour > currentHour) {
       $(rowEl[i]).addClass("future");
     }
-    
-    var userInput = localStorage.getItem(currentRowHour);
+
+    var userInput = rowEl.val();
     console.log(userInput);
-    if (userInput) {
+
+    // if (userInput)
+    {
+      var textEl = $(this).find(`#${currentRowHour}`);
+      // console.log(textEl);
+
+      var textArea = textEl.find("textarea");
+      // console.log(textArea);
+
       $(this).find(".description").val(userInput);
     }
-  
   }
+
   //
   // TODO: Add code to get any user input that was saved in localStorage and set
   // the values of the corresponding textarea elements. HINT: How can the id
