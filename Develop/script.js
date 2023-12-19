@@ -4,6 +4,7 @@ $(function () {
   // Add event listener for each of the 'save' buttons to save and store the data
   $(saveBtn).on("click", function () {
     var hourId = $(this).parent().attr("id");
+
     var input = $(this).siblings(".description").val();
     localStorage.setItem(hourId, input);
   });
@@ -24,19 +25,17 @@ $(function () {
       $(rowEl[i]).addClass("future");
     }
 
-    var userInput = rowEl.val();
-    console.log(userInput);
-
+    
     // if (userInput)
-    {
-      var textEl = $(this).find(`#${currentRowHour}`);
-      // console.log(textEl);
+    // {
+    //   var textEl = $(this).find(`#${currentRowHour}`);
+    //   // console.log(textEl);
 
-      var textArea = textEl.find("textarea");
-      // console.log(textArea);
+    //   var textArea = textEl.find("textarea");
+    //   // console.log(textArea);
 
-      $(this).find(".description").val(userInput);
-    }
+    //   $(this).find(".description").val(userInput);
+    // }
   }
 
   //
