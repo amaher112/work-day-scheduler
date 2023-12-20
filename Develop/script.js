@@ -1,10 +1,10 @@
 $(function () {
   var saveBtn = $(".saveBtn");
+  var data = [];
 
   // Add event listener for each of the 'save' buttons to save and store the data
   $(saveBtn).on("click", function () {
     var hourId = $(this).parent().attr("id");
-
     var input = $(this).siblings(".description").val();
     localStorage.setItem(hourId, input);
   });
@@ -15,6 +15,8 @@ $(function () {
   // Iterates over each div and compares the current time with the div id ('hour')
   for (var i = 0; i < rowEl.length; i++) {
     var currentRowHour = $(rowEl[i]).parent().attr("id");
+
+    // Sets a class based on what hour it currently is
     if (currentRowHour < currentHour) {
       $(rowEl[i]).addClass("past");
     }
@@ -25,26 +27,24 @@ $(function () {
       $(rowEl[i]).addClass("future");
     }
 
-    
-    // if (userInput)
-    // {
-    //   var textEl = $(this).find(`#${currentRowHour}`);
-    //   // console.log(textEl);
-
-    //   var textArea = textEl.find("textarea");
-    //   // console.log(textArea);
-
-    //   $(this).find(".description").val(userInput);
-    // }
+    // Getting the saved data out of local storage and pushing it into an empty array
+    var savedData = localStorage.getItem(currentRowHour) || "";
+    if (savedData) {
+      data.push({
+        hour: currentRowHour,
+        text: savedData,
+      });
+    }
   }
 
-  //
-  // TODO: Add code to get any user input that was saved in localStorage and set
-  // the values of the corresponding textarea elements. HINT: How can the id
-  // attribute of each time-block be used to do this?
+  // Renders data in local storage on the page
+  data.forEach((i) => {
+    var textEl = $(this).find(`#${i.hour}`).find("textarea");
+    textEl[0].innerText = i.text;
+    console.log(textEl);
+  });
 
-  // Create an object so there will be one key, and the value will be an array
-
+  // Gets and sets the current day
   var today = dayjs();
   $("#currentDay").text(today.format("dddd, MMMM DD, YYYY"));
 });
